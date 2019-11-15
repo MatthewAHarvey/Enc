@@ -6,6 +6,7 @@ void setup(){
     Serial.begin(250000);
     Serial.println("Connected to Enc.ino");
     enc.init();
+    // enc.setReversedDirection(true);
 }
 
 void loop(){

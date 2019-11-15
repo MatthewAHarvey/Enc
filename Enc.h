@@ -43,7 +43,11 @@ public:
 
     void init();
     void init(uint8_t pinA, uint8_t pinB);
+
     encEnum poll();
+
+    void setReversedDirection(bool reverse);
+    bool getReversedDirection();
 
 private:
     uint8_t pinA;
@@ -52,7 +56,6 @@ private:
 
     // encoder pin states and rotation step
     // Lower nibble gives the current state.
-    // Not true yet ////// Upper nibble gives the stepCounter 0 to 4.
     uint8_t AB = 0xF;       // B1111 because the rotary encoder will be in neutral state and the pullups will make the readings high.
     int8_t stepCounter = 0;
 };

@@ -26,7 +26,6 @@ encEnum Enc::poll(){
     AB |= (digitalRead(pinA) << 1) | digitalRead(pinB); // Add in the new AB data
     AB &= 0xF; // Mask with B00001111 to remove really old data so that we are left only with old AB and new AB.
     switch(encStateTable[AB]){
-        // case stepEnum::NO_CHANGE:                           break;
         case encStepEnum::CW_CHANGE:       stepCounter++;      break;
         case encStepEnum::ACW_CHANGE:      stepCounter--;      break;
         case encStepEnum::ILLEGAL_CHANGE:  stepCounter = 0;    break;
@@ -36,4 +35,18 @@ encEnum Enc::poll(){
         case 4:     stepCounter = 0;    return encEnum::CW;
         default:                        return encEnum::NO_CHANGE;
     }
+}
+
+void Enc::setReversedDirection(bool reverse){
+    if(reverse != reversed){
+        // need to flip the pins
+        reversed = reverse;
+        uint8_t tmp = pinB;
+        pinB = pinA;
+        pinA = tmp;    
+    }
+}
+
+bool Enc::getReversedDirection(){
+    return reversed;
 }
