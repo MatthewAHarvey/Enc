@@ -22,5 +22,18 @@ void Enc::init(uint8_t pinA, uint8_t pinB){
 }
 
 encEnum Enc::poll(){
-    
+    AB = AB << 2; // Shift the old AB data two places to the left.
+    AB |= (digitalRead(pinA) << 1) | digitalRead(pinB); // Add in the new AB data
+    AB &= 0xF; // Mask with B00001111 to remove really old data so that we are left only with old AB and new AB.
+    switch(encStateTable[AB]){
+        // case stepEnum::NO_CHANGE:                           break;
+        case encStepEnum::CW_CHANGE:       stepCounter++;      break;
+        case encStepEnum::ACW_CHANGE:      stepCounter--;      break;
+        case encStepEnum::ILLEGAL_CHANGE:  stepCounter = 0;    break;
+    }
+    switch(stepCounter){
+        case -4:    stepCounter = 0;    return encEnum::ACW;
+        case 4:     stepCounter = 0;    return encEnum::CW;
+        default:                        return encEnum::NO_CHANGE;
+    }
 }

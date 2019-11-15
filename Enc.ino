@@ -4,6 +4,7 @@ Enc enc(2, 3);
 
 void setup(){
     Serial.begin(250000);
+    Serial.println("Connected to Enc.ino");
     enc.init();
 }
 
