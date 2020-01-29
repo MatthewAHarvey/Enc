@@ -1,17 +1,19 @@
 #include "Enc.h"
 
 Enc enc(2, 3);
+int16_t totalSteps = 0;
 
 void setup(){
     Serial.begin(250000);
     Serial.println("Connected to Enc.ino");
     enc.init();
-    // enc.setReversedDirection(true);
+    // enc.setReversedDirection(true); // swaps the direction
 }
 
 void loop(){
-    switch(enc.poll()){
-        case encEnum::ACW:  Serial.println("ACW");  break;
-        case encEnum::CW:   Serial.println("CW");   break;
+    step = enc.poll();
+    if(step != 0){
+        totalSteps += step;
+        Serial.println(totalSteps);
     }
 }

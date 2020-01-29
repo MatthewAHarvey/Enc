@@ -7,4 +7,4 @@ Documentation on the loopup table method will come later but you can check the E
 
 See Enc.ino for a simple Arduino example program.
 
-For best performance, use the .poll() method inside an interrupt routine triggered by a change in either pins A or B. 
+For best performance, use the .poll() method inside an interrupt routine triggered by a change in either pins A or B.
